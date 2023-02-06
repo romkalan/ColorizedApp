@@ -9,11 +9,25 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet var canvasView: UIView!
+    
+    @IBOutlet var redColorValueLabel: UILabel!
+    @IBOutlet var greenColorValueLabel: UILabel!
+    @IBOutlet var blueColorValueLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        canvasView.layer.cornerRadius = 10
     }
 
 
+    @IBAction func redColorSlider() {
+    }
+    
+    @IBAction func greenColorSlider() {
+    }
+    
+    @IBAction func blueColorSlider() {
+    }
 }
 
