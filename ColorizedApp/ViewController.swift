@@ -24,11 +24,8 @@ final class ViewController: UIViewController {
         redColorSlider.value = 0.05
         greenColorSlider.value = 0.27
         blueColorSlider.value = 0.49
-        setupColor()
-    }
-    
-    override func viewDidLayoutSubviews() {
         canvasView.layer.cornerRadius = 15
+        setupColor()
     }
 
     @IBAction func redColorSliderAction() {
