@@ -23,6 +23,7 @@ final class ViewController: UIViewController {
         super.viewDidLoad()
         setInitialSettings()
         setupColor()
+        
     }
 
     @IBAction func redColorSliderAction() {
