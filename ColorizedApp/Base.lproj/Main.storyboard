@@ -119,9 +119,9 @@
                             <constraint firstItem="uIB-ex-dpm" firstAttribute="top" secondItem="2JH-Uh-mJX" secondAttribute="bottom" constant="30" id="cwn-lB-CHr"/>
                             <constraint firstItem="tV3-W0-3Hq" firstAttribute="leading" secondItem="uIB-ex-dpm" secondAttribute="trailing" constant="20" id="fE6-kl-RGB"/>
                             <constraint firstItem="2JH-Uh-mJX" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="jT0-DT-DB0"/>
+                            <constraint firstItem="tV3-W0-3Hq" firstAttribute="top" secondItem="2JH-Uh-mJX" secondAttribute="bottom" constant="25" id="oI9-7v-vDT"/>
                             <constraint firstItem="2JH-Uh-mJX" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="qra-bu-t8H"/>
                             <constraint firstItem="uIB-ex-dpm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="qxU-n0-dkb"/>
-                            <constraint firstItem="tV3-W0-3Hq" firstAttribute="top" secondItem="2JH-Uh-mJX" secondAttribute="bottom" constant="25" id="vWm-Hs-q0E"/>
                         </constraints>
                     </view>
                     <connections>
