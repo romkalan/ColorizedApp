@@ -21,10 +21,7 @@ final class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        redColorSlider.value = 0.05
-        greenColorSlider.value = 0.27
-        blueColorSlider.value = 0.49
-        canvasView.layer.cornerRadius = 15
+        setInitialSettings()
         setupColor()
     }
 
@@ -50,7 +47,14 @@ final class ViewController: UIViewController {
             green: CGFloat(greenColorSlider.value),
             blue: CGFloat(blueColorSlider.value),
             alpha: 1
-            )
+        )
+    }
+    
+    private func setInitialSettings() {
+        redColorSlider.value = 0.05
+        greenColorSlider.value = 0.27
+        blueColorSlider.value = 0.49
+        canvasView.layer.cornerRadius = 15
     }
     
 }
