@@ -20,6 +20,7 @@ final class SettingsViewController: UIViewController {
     @IBOutlet var blueColorSlider: UISlider!
     
     var colorCanvasView: UIColor!
+    unowned var delegate: SettingsViewControllerDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,12 +43,16 @@ final class SettingsViewController: UIViewController {
     }
     
     @IBAction func doneButtonPressed(_ sender: UIButton) {
+        guard let color = canvasView.backgroundColor else { return }
+        delegate.setNewColor(for: color)
         dismiss(animated: true)
     }
+}
     
+// MARK: - Private Methods
+private extension SettingsViewController {
     
-    // MARK: - Private Methods
-    private func setupColor() {
+    func setupColor() {
         canvasView.backgroundColor = UIColor(
             red: CGFloat(redColorSlider.value),
             green: CGFloat(greenColorSlider.value),
@@ -56,7 +61,7 @@ final class SettingsViewController: UIViewController {
         )
     }
     
-    private func setupLabelsValues(for colorValueLabels: UILabel...) {
+    func setupLabelsValues(for colorValueLabels: UILabel...) {
         colorValueLabels.forEach { label in
             switch label {
             case redColorValueLabel:
@@ -69,7 +74,7 @@ final class SettingsViewController: UIViewController {
         }
     }
     
-    private func setupSlidersValues(for slidersValue: UISlider...) {
+    func setupSlidersValues(for slidersValue: UISlider...) {
         var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
         
         guard let color = canvasView.backgroundColor else { return }
@@ -87,16 +92,12 @@ final class SettingsViewController: UIViewController {
         }
     }
     
-    private func setInitialSettings() {
+    func setInitialSettings() {
         canvasView.layer.cornerRadius = 15
         canvasView.backgroundColor = colorCanvasView
     }
     
-    private func string(from slider: UISlider) -> String {
+    func string(from slider: UISlider) -> String {
         return String(format: "%.2f", slider.value)
     }
-
 }
-
-
-
