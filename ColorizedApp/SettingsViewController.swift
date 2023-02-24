@@ -31,7 +31,7 @@ final class SettingsViewController: UIViewController {
         super.viewDidLoad()
         setInitialSettings()
         setupSlidersValues(for: redColorSlider, greenColorSlider, blueColorSlider)
-        updateElementsValues()
+        updateUI()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -67,13 +67,12 @@ final class SettingsViewController: UIViewController {
 private extension SettingsViewController {
     
     // MARK: - setup Elements SettingsViewController
-    
-    func updateElementsValues() {
+   
+    func updateUI() {
         setupLabelsValues(for: redColorValueLabel, greenColorValueLabel, blueColorValueLabel)
         setupTextFields(for: redColorTextField, greenColorTextField, blueColorTextField)
         setupColor()
     }
-    
     func setupColor() {
         canvasView.backgroundColor = UIColor(
             red: CGFloat(redColorSlider.value),
@@ -221,19 +220,16 @@ extension SettingsViewController: UITextFieldDelegate {
             guard let redColorTF = redColorTextField.text else { return }
             guard let redTF = Float(redColorTF) else { return }
             addSliderAnimation(for: redColorSlider, on: redTF)
-//            redColorValueLabel.text = redColorTF
         case greenColorTextField:
             guard let greenColorTF = greenColorTextField.text else { return }
             guard let greenTF = Float(greenColorTF) else { return }
             addSliderAnimation(for: greenColorSlider, on: greenTF)
-//            greenColorValueLabel.text = greenColorTF
         default:
             guard let blueColorTF = blueColorTextField.text else { return }
             guard let blueTF = Float(blueColorTF) else { return }
             addSliderAnimation(for: blueColorSlider, on: blueTF)
-//            blueColorValueLabel.text = blueColorTF
         }
-        updateElementsValues()
+        updateUI()
     }
 }
 
