@@ -11,7 +11,7 @@ protocol SettingsViewControllerDelegate: AnyObject {
     func setNewColor(for color: UIColor)
 }
 
-class ColorViewController: UIViewController {
+final class ColorViewController: UIViewController {
 
     
     override func viewDidLoad() {

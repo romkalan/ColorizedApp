@@ -36,6 +36,11 @@ final class SettingsViewController: UIViewController {
         setupColor()
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        view.endEditing(true)
+    }
+    
     @IBAction func SliderAction(_ sender: UISlider) {
         setupColor()
         switch sender {
@@ -71,8 +76,8 @@ private extension SettingsViewController {
         )
     }
     
-    func setupLabelsValues(for colorValueLabels: UILabel...) {
-        colorValueLabels.forEach { label in
+    func setupLabelsValues(for colorLabels: UILabel...) {
+        colorLabels.forEach { label in
             switch label {
             case redColorValueLabel:
                 redColorValueLabel.text = string(from: redColorSlider)
@@ -97,13 +102,13 @@ private extension SettingsViewController {
         }
     }
     
-    func setupSlidersValues(for slidersValue: UISlider...) {
+    func setupSlidersValues(for sliders: UISlider...) {
         var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
         
         guard let color = canvasView.backgroundColor else { return }
         color.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
         
-        slidersValue.forEach { slider in
+        sliders.forEach { slider in
             switch slider {
             case redColorSlider:
                 redColorSlider.value = Float(red)
@@ -115,12 +120,6 @@ private extension SettingsViewController {
         }
     }
     
-    func textFieldDelegate() {
-        redColorTextField.delegate = self
-        greenColorTextField.delegate = self
-        blueColorTextField.delegate = self
-    }
-    
     func setInitialSettings() {
         canvasView.layer.cornerRadius = 15
         canvasView.backgroundColor = colorCanvasView
@@ -130,13 +129,15 @@ private extension SettingsViewController {
         addToolBar(for: blueColorTextField)
     }
     
+    func textFieldDelegate() {
+        redColorTextField.delegate = self
+        greenColorTextField.delegate = self
+        blueColorTextField.delegate = self
+    }
+    
     func string(from slider: UISlider) -> String {
         return String(format: "%.2f", slider.value)
     }
-}
-
-//MARK: UITextFieldDelegate
-extension SettingsViewController: UITextFieldDelegate {
     
     func addToolBar(for textField: UITextField) {
         let toolBar = createToolBar()
@@ -173,6 +174,10 @@ extension SettingsViewController: UITextFieldDelegate {
     @objc func donePressed() {
         self.view.endEditing(true)
     }
+}
+
+//MARK: UITextFieldDelegate
+extension SettingsViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
             
