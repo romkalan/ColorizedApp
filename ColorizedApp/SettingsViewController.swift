@@ -38,6 +38,7 @@ final class SettingsViewController: UIViewController {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
+        checkTextField(for: redColorTextField, greenColorTextField, blueColorTextField)
         view.endEditing(true)
     }
     
@@ -137,10 +138,29 @@ private extension SettingsViewController {
         return String(format: "%.2f", slider.value)
     }
     
-    func sliderAnimation(for value: Float) {
+    func sliderAnimation(for slider: UISlider, on value: Float) {
         UIView.animate(withDuration: 0.3, animations: {
-          self.redColorSlider.setValue(value, animated:true)
+          slider.setValue(value, animated:true)
         })
+    }
+    
+    func checkTextField(for textFields: UITextField...) {
+        textFields.forEach { textField in
+            guard let inputText = textField.text, !inputText.isEmpty else {
+                showAlert(
+                    withTitle: "Wrong format",
+                    andMessage: "Please enter correct value",
+                    for: textField)
+                return
+            }
+            guard let _ = Float(inputText) else {
+                showAlert(
+                    withTitle: "Wrong format",
+                    andMessage: "Please enter correct value",
+                    for: textField)
+                return
+            }
+        }
     }
     
     func addToolBar(for textFields: UITextField...) {
@@ -177,6 +197,7 @@ private extension SettingsViewController {
     }
     
     @objc func donePressed() {
+        checkTextField(for: redColorTextField, greenColorTextField, blueColorTextField)
         self.view.endEditing(true)
     }
 }
@@ -190,18 +211,18 @@ extension SettingsViewController: UITextFieldDelegate {
         case redColorTextField:
             guard let redColorTF = redColorTextField.text else { return }
             guard let redTF = Float(redColorTF) else { return }
-            sliderAnimation(for: redTF)
-            redColorValueLabel.text = String(redColorTF)
+            sliderAnimation(for: redColorSlider, on: redTF)
+            redColorValueLabel.text = redColorTF
         case greenColorTextField:
             guard let greenColorTF = greenColorTextField.text else { return }
             guard let greenTF = Float(greenColorTF) else { return }
-            sliderAnimation(for: greenTF)
-            greenColorValueLabel.text = String(greenColorTF)
+            sliderAnimation(for: greenColorSlider, on: greenTF)
+            greenColorValueLabel.text = greenColorTF
         default:
             guard let blueColorTF = blueColorTextField.text else { return }
             guard let blueTF = Float(blueColorTF) else { return }
-            sliderAnimation(for: blueTF)
-            blueColorValueLabel.text = String(blueColorTF)
+            sliderAnimation(for: blueColorSlider, on: blueTF)
+            blueColorValueLabel.text = blueColorTF
         }
         setupColor()
     }
@@ -212,7 +233,7 @@ extension SettingsViewController {
     private func showAlert(withTitle title: String, andMessage message: String, for textField: UITextField) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default) { _ in
-            textField.text = ""
+            textField.text = "1.00"
         }
         alert.addAction(okAction)
         present(alert, animated: true)
