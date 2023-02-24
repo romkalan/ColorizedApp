@@ -151,7 +151,7 @@ private extension SettingsViewController {
                 x: 0.0,
                 y: 0.0,
                 width: UIScreen.main.bounds.size.width,
-                height: 44.0
+                height: 32.0
             )
         )
         let flexible = UIBarButtonItem(
