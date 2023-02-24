@@ -137,6 +137,12 @@ private extension SettingsViewController {
         return String(format: "%.2f", slider.value)
     }
     
+    func sliderAnimation(for value: Float) {
+        UIView.animate(withDuration: 0.3, animations: {
+          self.redColorSlider.setValue(value, animated:true)
+        })
+    }
+    
     func addToolBar(for textFields: UITextField...) {
         let toolBar = createToolBar()
         for textField in textFields {
@@ -150,7 +156,7 @@ private extension SettingsViewController {
                 x: 0.0,
                 y: 0.0,
                 width: UIScreen.main.bounds.size.width,
-                height: 32.0
+                height: 38.0
             )
         )
         let flexible = UIBarButtonItem(
@@ -184,17 +190,17 @@ extension SettingsViewController: UITextFieldDelegate {
         case redColorTextField:
             guard let redColorTF = redColorTextField.text else { return }
             guard let redTF = Float(redColorTF) else { return }
-            redColorSlider.value = Float(redTF)
+            sliderAnimation(for: redTF)
             redColorValueLabel.text = String(redColorTF)
         case greenColorTextField:
             guard let greenColorTF = greenColorTextField.text else { return }
             guard let greenTF = Float(greenColorTF) else { return }
-            greenColorSlider.value = Float(greenTF)
+            sliderAnimation(for: greenTF)
             greenColorValueLabel.text = String(greenColorTF)
         default:
             guard let blueColorTF = blueColorTextField.text else { return }
             guard let blueTF = Float(blueColorTF) else { return }
-            blueColorSlider.value = Float(blueTF)
+            sliderAnimation(for: blueTF)
             blueColorValueLabel.text = String(blueColorTF)
         }
         setupColor()
