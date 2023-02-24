@@ -68,6 +68,7 @@ final class SettingsViewController: UIViewController {
 // MARK: - Private Methods
 private extension SettingsViewController {
     
+    // MARK: - setup Elements SettingsViewController
     func setupColor() {
         canvasView.backgroundColor = UIColor(
             red: CGFloat(redColorSlider.value),
@@ -121,24 +122,11 @@ private extension SettingsViewController {
         }
     }
     
-    func setInitialSettings() {
-        canvasView.layer.cornerRadius = 15
-        canvasView.backgroundColor = colorCanvasView
-        textFieldDelegate(for: redColorTextField, greenColorTextField, blueColorTextField)
-        addToolBar(for: redColorTextField, greenColorTextField, blueColorTextField)
-    }
-    
-    func textFieldDelegate(for textfields: UITextField...) {
-        for textField in textfields {
-            textField.delegate = self
-        }
-    }
-    
     func string(from slider: UISlider) -> String {
         return String(format: "%.2f", slider.value)
     }
     
-    func sliderAnimation(for slider: UISlider, on value: Float) {
+    func addSliderAnimation(for slider: UISlider, on value: Float) {
         UIView.animate(withDuration: 0.3, animations: {
           slider.setValue(value, animated:true)
         })
@@ -163,6 +151,20 @@ private extension SettingsViewController {
         }
     }
     
+    // MARK: - Initial Settings
+    func setInitialSettings() {
+        canvasView.layer.cornerRadius = 15
+        canvasView.backgroundColor = colorCanvasView
+        textFieldDelegate(for: redColorTextField, greenColorTextField, blueColorTextField)
+        addToolBar(for: redColorTextField, greenColorTextField, blueColorTextField)
+    }
+    
+    func textFieldDelegate(for textfields: UITextField...) {
+        for textField in textfields {
+            textField.delegate = self
+        }
+    }
+    
     func addToolBar(for textFields: UITextField...) {
         let toolBar = createToolBar()
         for textField in textFields {
@@ -172,59 +174,22 @@ private extension SettingsViewController {
     
     func createToolBar() -> UIToolbar {
         let toolBar = UIToolbar(
-            frame: CGRect(
-                x: 0.0,
-                y: 0.0,
-                width: UIScreen.main.bounds.size.width,
-                height: 38.0
-            )
+            frame: CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.size.width, height: 38.0)
         )
         let flexible = UIBarButtonItem(
-            barButtonSystemItem: .flexibleSpace,
-            target: nil,
-            action: nil
+            barButtonSystemItem: .flexibleSpace, target: nil, action: nil
         )
         let doneButton = UIBarButtonItem(
-            title: "Done",
-            style: UIBarButtonItem.Style.done,
-            target: self,
-            action: #selector(donePressed)
+            title: "Done", style: .done, target: self, action: #selector(donePressed)
         )
         
         toolBar.setItems([flexible, doneButton], animated: false)
-        
         return toolBar
     }
     
     @objc func donePressed() {
         checkTextField(for: redColorTextField, greenColorTextField, blueColorTextField)
         self.view.endEditing(true)
-    }
-}
-
-//MARK: UITextFieldDelegate
-extension SettingsViewController: UITextFieldDelegate {
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-            
-        switch textField {
-        case redColorTextField:
-            guard let redColorTF = redColorTextField.text else { return }
-            guard let redTF = Float(redColorTF) else { return }
-            sliderAnimation(for: redColorSlider, on: redTF)
-            redColorValueLabel.text = redColorTF
-        case greenColorTextField:
-            guard let greenColorTF = greenColorTextField.text else { return }
-            guard let greenTF = Float(greenColorTF) else { return }
-            sliderAnimation(for: greenColorSlider, on: greenTF)
-            greenColorValueLabel.text = greenColorTF
-        default:
-            guard let blueColorTF = blueColorTextField.text else { return }
-            guard let blueTF = Float(blueColorTF) else { return }
-            sliderAnimation(for: blueColorSlider, on: blueTF)
-            blueColorValueLabel.text = blueColorTF
-        }
-        setupColor()
     }
 }
 
@@ -239,3 +204,31 @@ extension SettingsViewController {
         present(alert, animated: true)
     }
 }
+
+//MARK: - UITextFieldDelegate
+extension SettingsViewController: UITextFieldDelegate {
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+            
+        switch textField {
+        case redColorTextField:
+            guard let redColorTF = redColorTextField.text else { return }
+            guard let redTF = Float(redColorTF) else { return }
+            addSliderAnimation(for: redColorSlider, on: redTF)
+            redColorValueLabel.text = redColorTF
+        case greenColorTextField:
+            guard let greenColorTF = greenColorTextField.text else { return }
+            guard let greenTF = Float(greenColorTF) else { return }
+            addSliderAnimation(for: greenColorSlider, on: greenTF)
+            greenColorValueLabel.text = greenColorTF
+        default:
+            guard let blueColorTF = blueColorTextField.text else { return }
+            guard let blueTF = Float(blueColorTF) else { return }
+            addSliderAnimation(for: blueColorSlider, on: blueTF)
+            blueColorValueLabel.text = blueColorTF
+        }
+        setupColor()
+    }
+}
+
+
