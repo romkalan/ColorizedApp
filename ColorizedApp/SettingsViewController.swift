@@ -123,26 +123,25 @@ private extension SettingsViewController {
     func setInitialSettings() {
         canvasView.layer.cornerRadius = 15
         canvasView.backgroundColor = colorCanvasView
-        textFieldDelegate()
-        addToolBar(for: redColorTextField)
-        addToolBar(for: greenColorTextField)
-        addToolBar(for: blueColorTextField)
+        textFieldDelegate(for: redColorTextField, greenColorTextField, blueColorTextField)
+        addToolBar(for: redColorTextField, greenColorTextField, blueColorTextField)
     }
     
-    func textFieldDelegate() {
-        redColorTextField.delegate = self
-        greenColorTextField.delegate = self
-        blueColorTextField.delegate = self
+    func textFieldDelegate(for textfields: UITextField...) {
+        for textField in textfields {
+            textField.delegate = self
+        }
     }
     
     func string(from slider: UISlider) -> String {
         return String(format: "%.2f", slider.value)
     }
     
-    func addToolBar(for textField: UITextField) {
+    func addToolBar(for textFields: UITextField...) {
         let toolBar = createToolBar()
-        
-        textField.inputAccessoryView = toolBar
+        for textField in textFields {
+            textField.inputAccessoryView = toolBar
+        }
     }
     
     func createToolBar() -> UIToolbar {
@@ -199,5 +198,17 @@ extension SettingsViewController: UITextFieldDelegate {
             blueColorValueLabel.text = String(blueColorTF)
         }
         setupColor()
+    }
+}
+
+// MARK: - UIAlertController
+extension SettingsViewController {
+    private func showAlert(withTitle title: String, andMessage message: String, for textField: UITextField) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+            textField.text = ""
+        }
+        alert.addAction(okAction)
+        present(alert, animated: true)
     }
 }
