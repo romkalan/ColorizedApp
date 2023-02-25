@@ -56,9 +56,7 @@ final class SettingsViewController: UIViewController {
     }
     
     @IBAction func doneButtonPressed(_ sender: UIButton) {
-        if let color = canvasView.backgroundColor {
-            delegate.setNewColor(for: color)
-        }
+        delegate.setNewColor(for: canvasView.backgroundColor ?? .white)
         dismiss(animated: true)
     }
 }
@@ -109,7 +107,10 @@ private extension SettingsViewController {
     }
     
     func setupSlidersValues(for sliders: UISlider...) {
-        var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
+        var red: CGFloat = 0
+        var green: CGFloat = 0
+        var blue: CGFloat = 0
+        var alpha: CGFloat = 0
         
         guard let color = canvasView.backgroundColor else { return }
         color.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
@@ -127,7 +128,7 @@ private extension SettingsViewController {
     }
     
     func string(from slider: UISlider) -> String {
-        return String(format: "%.2f", slider.value)
+        String(format: "%.2f", slider.value)
     }
     
     func addSliderAnimation(for slider: UISlider, on value: Float) {

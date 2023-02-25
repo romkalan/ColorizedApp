@@ -39,6 +39,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AD16C41329AA2C2A00A12E0F /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				AD6AC63929A743340088D625 /* ColorViewController.swift */,
+				ADC54D5A2990EEA8001B7C7F /* SettingsViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		AD6AC63729A742200088D625 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -77,8 +86,7 @@
 		ADC54D552990EEA8001B7C7F /* ColorizedApp */ = {
 			isa = PBXGroup;
 			children = (
-				AD6AC63929A743340088D625 /* ColorViewController.swift */,
-				ADC54D5A2990EEA8001B7C7F /* SettingsViewController.swift */,
+				AD16C41329AA2C2A00A12E0F /* ViewControllers */,
 				AD6AC63829A742CB0088D625 /* Storyboards */,
 				AD6AC63729A742200088D625 /* App */,
 				ADC54D5F2990EEA8001B7C7F /* Assets.xcassets */,
