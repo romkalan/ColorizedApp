@@ -138,7 +138,6 @@ private extension SettingsViewController {
     }
     
     func checkTextField(for textFields: UITextField...) {
-        let range: ClosedRange<Float> = 0...1
         textFields.forEach { textField in
             guard let inputText = textField.text, !inputText.isEmpty else {
                 showAlert(
@@ -147,7 +146,7 @@ private extension SettingsViewController {
                     for: textField)
                 return
             }
-            guard let value = Float(inputText), range ~= value else {
+            guard let value = Float(inputText), (0...1).contains(value) else {
                 showAlert(
                     withTitle: "Wrong format",
                     andMessage: "Please enter correct value",
@@ -205,6 +204,7 @@ extension SettingsViewController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default) { _ in
             textField.text = "1.00"
+            textField.becomeFirstResponder()
         }
         alert.addAction(okAction)
         present(alert, animated: true)
